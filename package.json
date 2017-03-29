@@ -1,0 +1,57 @@
+{
+  "title": "Responsive Bookmarks Toolbar",
+  "version": "1.0.1",
+  "engines": {
+    "{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}": ">=27.1.0b1 <=27.*"
+  },
+  "author": "Off JustOff <Off.Just.Off@gmail.com>",
+  "contributors": [
+    "Jaffob"
+  ],
+  "description": "Auto expand folders in Bookmarks Toolbar on mouse hover",
+  "homepage": "https://github.com/JustOff/resp-bmbar",
+  "id": "resp-bmbar@Off.JustOff",
+  "license": "GPL-3.0",
+  "name": "resp-bmbar",
+  "permissions": {
+    "private-browsing": true
+  },
+  "preferences-branch": "resp-bmbar",
+  "preferences": [
+  {
+   "description": "How long you must hover over the bookmark folder before it expands",
+   "name": "openDelay",
+   "title": "Expand delay (ms)",
+   "type": "integer",
+   "value": 0
+  },
+  {
+   "description": "How long the mouse is away from the bookmark before it collapses",
+   "name": "closeDelay",
+   "title": "Collapse delay (ms)",
+   "type": "integer",
+   "value": 0
+  },
+  {
+   "description": "Consider direction of approaching the folder to prevent accidental expanding",
+   "name": "approach",
+   "options": [
+    {
+     "label": "Always",
+     "value": "A"
+    },
+    {
+     "label": "When approaching from above",
+     "value": "a"
+    },
+    {
+     "label": "When approaching from below",
+     "value": "b"
+    }
+   ],
+   "title": "Auto expand folders",
+   "type": "radio",
+   "value": "A"
+  }
+  ]
+}
