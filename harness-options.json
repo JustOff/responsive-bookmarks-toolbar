@@ -1,0 +1,90 @@
+{
+ "check_memory": false, 
+ "enable_e10s": false, 
+ "is-sdk-bundled": false, 
+ "jetpackID": "jid1-UReeVGBoB5LmIw@jetpack", 
+ "loader": "addon-sdk/lib/sdk/loader/cuddlefish.js", 
+ "main": "main", 
+ "mainPath": "mouseoverbookmarks/main", 
+ "manifest": {
+  "mouseoverbookmarks/main": {
+   "docsSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", 
+   "jsSHA256": "83b9e9c56ce741013e7a5d1d90788fb05ff568d437db4c615cf24231c80f1e2b", 
+   "moduleName": "main", 
+   "packageName": "mouseoverbookmarks", 
+   "requirements": {
+    "chrome": "chrome", 
+    "sdk/self": "sdk/self", 
+    "sdk/simple-prefs": "sdk/simple-prefs", 
+    "sdk/timers": "sdk/timers"
+   }, 
+   "sectionName": "lib"
+  }
+ }, 
+ "metadata": {
+  "addon-sdk": {
+   "description": "Add-on development made easy.", 
+   "keywords": [
+    "javascript", 
+    "engine", 
+    "addon", 
+    "extension", 
+    "xulrunner", 
+    "firefox", 
+    "browser"
+   ], 
+   "license": "MPL 2.0", 
+   "name": "addon-sdk"
+  }, 
+  "mouseoverbookmarks": {
+   "author": "Jaffob", 
+   "description": "Move your mouse over a folder on the Bookmarks Toolbar to open it immediately, rather than having to click.", 
+   "license": "MPL 2.0", 
+   "main": "main", 
+   "name": "mouseoverbookmarks", 
+   "version": "1.1"
+  }
+ }, 
+ "name": "mouseoverbookmarks", 
+ "parseable": false, 
+ "preferences": [
+  {
+   "description": "How long you must hover over the bookmark folder before it opens.", 
+   "name": "openDelay", 
+   "title": "Menu open delay (milliseconds)", 
+   "type": "integer", 
+   "value": 0
+  }, 
+  {
+   "description": "How long the mouse is away from the bookmark before it closes.", 
+   "name": "closeDelay", 
+   "title": "Menu close delay (milliseconds)", 
+   "type": "integer", 
+   "value": 0
+  }, 
+  {
+   "description": "May help prevent opening folders accidentally.", 
+   "name": "approach", 
+   "options": [
+    {
+     "label": "Always open bookmark folders", 
+     "value": "A"
+    }, 
+    {
+     "label": "Only open folders when approaching from above", 
+     "value": "a"
+    }, 
+    {
+     "label": "Only open folders when approaching from below", 
+     "value": "b"
+    }
+   ], 
+   "title": "Approach direction", 
+   "type": "radio", 
+   "value": "A"
+  }
+ ], 
+ "sdkVersion": "1.15", 
+ "staticArgs": {}, 
+ "verbose": false
+}
