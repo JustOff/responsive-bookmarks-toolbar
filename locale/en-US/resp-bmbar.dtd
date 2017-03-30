@@ -1,0 +1,9 @@
+<!ENTITY resp-bmbar.openDelay.title "Expand delay (ms)">
+<!ENTITY resp-bmbar.openDelay.hint "How long you must hover over the bookmark folder before it expands">
+<!ENTITY resp-bmbar.closeDelay.title "Collapse delay (ms)">
+<!ENTITY resp-bmbar.closeDelay.hint "How long the mouse is away from the bookmark before it collapses">
+<!ENTITY resp-bmbar.approach.title "Auto expand folders">
+<!ENTITY resp-bmbar.approach.hint "Consider direction of approaching the folder to prevent accidental expanding">
+<!ENTITY resp-bmbar.approach.always "Always">
+<!ENTITY resp-bmbar.approach.fromabove "When approaching from above">
+<!ENTITY resp-bmbar.approach.frombelow "When approaching from below">

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!DOCTYPE window SYSTEM "chrome://resp-bmbar/locale/resp-bmbar.dtd">
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <setting pref="extensions.resp-bmbar.openDelay" title="&resp-bmbar.openDelay.title;" type="integer">
+    &resp-bmbar.openDelay.hint;
+  </setting>
+  <setting pref="extensions.resp-bmbar.closeDelay" title="&resp-bmbar.closeDelay.title;" type="integer">
+    &resp-bmbar.closeDelay.hint;
+  </setting>
+  <setting pref="extensions.resp-bmbar.approach" title="&resp-bmbar.approach.title;" type="radio">
+    &resp-bmbar.approach.hint;
+    <radiogroup>
+      <radio label="&resp-bmbar.approach.always;" value="A"/>
+      <radio label="&resp-bmbar.approach.fromabove;" value="a"/>
+      <radio label="&resp-bmbar.approach.frombelow;" value="b"/>
+    </radiogroup>
+  </setting>
+</vbox>
