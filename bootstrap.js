@@ -80,56 +80,56 @@ BrowserWindowObserver.prototype = {
 	}
 };
 
-function setupMouseListeners(aWindow, bmFolder) {
+function mouseOverListener (e) {
 	// Open the menu upon mousing over.
-	bmFolder.onmouseover = function() {
-		var bookmark = this;
+	var bookmark = e.currentTarget;
+	var win = e.view;
 
-		// Make sure no context menus are open.
-		if (aWindow.document.getElementById('placesContext').state != 'open') {
-			// Check approach direction.
-			if (approach == 'A' || closeTimers.length > 0
-								|| (approach == 'a' && mouseY > oldMouseY)
-								|| (approach == 'b' && mouseY < oldMouseY)) {
-				// First, cancel any timers trying to close the menu.
-				for (var i = 0; i < closeTimers.length; i++) {
-					aWindow.clearTimeout(closeTimers[i]);
-				}
-				closeTimers = [];
-
-				// Delay time is under 10; set a delay of 10ms to prevent bugs.
-				if (openDelay < 10) {
-					openTimers.push(aWindow.setTimeout(function () {bookmark.open = true}, 10));
-				// Delay time is set; set a timer.
-				} else {
-					openTimers.push(aWindow.setTimeout(function () {bookmark.open = true}, openDelay));
-				}
+	// Make sure no context menus are open.
+	if (win.document.getElementById('placesContext').state != 'open') {
+		// Check approach direction.
+		if (approach == 'A' || closeTimers.length > 0
+							|| (approach == 'a' && mouseY > oldMouseY)
+							|| (approach == 'b' && mouseY < oldMouseY)) {
+			// First, cancel any timers trying to close the menu.
+			for (var i = 0; i < closeTimers.length; i++) {
+				win.clearTimeout(closeTimers[i]);
 			}
-		}
-	};
-
-	// Close menu upon mousing out.
-	bmFolder.onmouseout = function() {
-		var bookmark = this;
-
-		// Make sure no context menus are open.
-		if (aWindow.document.getElementById('placesContext').state != 'open') {
-			// First, cancel any timers trying to open the menu.
-			for (var i = 0; i < openTimers.length; i++) {
-				aWindow.clearTimeout(openTimers[i]);
-			}
-			openTimers = [];
+			closeTimers = [];
 
 			// Delay time is under 10; set a delay of 10ms to prevent bugs.
-			if (closeDelay < 10) {
-				closeTimers.push(aWindow.setTimeout(function () {bookmark.open = false; closeTimers = [];}, 10));
+			if (openDelay < 10) {
+				openTimers.push(win.setTimeout(function () {bookmark.open = true}, 10));
 			// Delay time is set; set a timer.
 			} else {
-				closeTimers.push(aWindow.setTimeout(function () {bookmark.open = false; closeTimers = [];}, closeDelay));
+				openTimers.push(win.setTimeout(function () {bookmark.open = true}, openDelay));
 			}
 		}
-	};
+	}
 }
+
+function mouseOutListener (e) {
+	// Close the menu upon mousing out.
+	var bookmark = e.currentTarget;
+	var win = e.view;
+
+	// Make sure no context menus are open.
+	if (win.document.getElementById('placesContext').state != 'open') {
+		// First, cancel any timers trying to open the menu.
+		for (var i = 0; i < openTimers.length; i++) {
+			win.clearTimeout(openTimers[i]);
+		}
+		openTimers = [];
+
+		// Delay time is under 10; set a delay of 10ms to prevent bugs.
+		if (closeDelay < 10) {
+			closeTimers.push(win.setTimeout(function () {bookmark.open = false; closeTimers = [];}, 10));
+		// Delay time is set; set a timer.
+		} else {
+			closeTimers.push(win.setTimeout(function () {bookmark.open = false; closeTimers = [];}, closeDelay));
+		}
+	}
+};
 
 function browserWindowStartup (aWindow) {
 	// Initialize the approach setting.
@@ -143,23 +143,23 @@ function browserWindowStartup (aWindow) {
 
 	// Iterate bookmarks.
 	for (var bookmark of bookmarks) {
-		if (bookmark.type == 'menu' && !bookmark.onmouseover) {
-			setupMouseListeners(aWindow, bookmark);
+		if (bookmark.type == 'menu') {
+			bookmark.addEventListener('mouseover', mouseOverListener, false);
+			bookmark.addEventListener('mouseout', mouseOutListener, false);
 		}
 	}
 
 	aWindow.respBmbarObserver = new aWindow.MutationObserver(function (mutations) {
 		mutations.forEach(function (mutation) {
-			for (var item of mutation.addedNodes) {
-				if (item.type == 'menu' && !item.onmouseover) {
-					setupMouseListeners(aWindow, item);
+			for (var bookmark of mutation.addedNodes) {
+				if (bookmark.type == 'menu') {
+					bookmark.addEventListener('mouseover', mouseOverListener, false);
+					bookmark.addEventListener('mouseout', mouseOutListener, false);
 				}
 			}
-			for (var item of mutation.removedNodes) {
-				if (item.onmouseover) {
-					item.onmouseover = null;
-					item.onmouseout = null;
-				}
+			for (var bookmark of mutation.removedNodes) {
+				bookmark.removeEventListener('mouseover', mouseOverListener, false);
+				bookmark.removeEventListener('mouseout', mouseOutListener, false);
 			}
 		});
 	});
@@ -175,10 +175,8 @@ function browserWindowShutdown (aWindow) {
 	var bookmarks = bookmarksBar.getElementsByClassName('bookmark-item');
 
 	for (var bookmark of bookmarks) {
-		if (bookmark.type == 'menu') {
-			bookmark.onmouseover = null;
-			bookmark.onmouseout = null;
-		}
+		bookmark.removeEventListener('mouseover', mouseOverListener, false);
+		bookmark.removeEventListener('mouseout', mouseOutListener, false);
 	}
 }
 
